@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'minesweeper_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Buscaminas',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Text('Hello, World!'),
+      home: const MinesweeperScreen(),
     );
   }
 }
