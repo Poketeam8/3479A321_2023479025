@@ -14,12 +14,37 @@ class MinesweeperScreen extends StatelessWidget {
             // STATUS
             Container(
               height: 60,
-              color: Colors.grey[300],
-              child: const Center(
-                child: Text(
-                  'STATUS: 349 segundos | Minas: 10 | Cuadros: 56',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
+              color: const Color.fromARGB(255, 209, 119, 119),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: const [
+                      Icon(Icons.timer, color: Colors.black),
+                      SizedBox(width: 5),
+                      Text(
+                        '349s',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+
+                  Row(
+                    children: const [
+                      Icon(Icons.warning, color: Colors.red),
+                      SizedBox(width: 5),
+                      Text('10', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+
+                  Row(
+                    children: const [
+                      Icon(Icons.grid_on, color: Colors.blue),
+                      SizedBox(width: 5),
+                      Text('56', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
               ),
             ),
 

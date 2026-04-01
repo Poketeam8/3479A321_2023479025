@@ -9,8 +9,11 @@ class MineCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[400],
-        border: Border.all(color: Colors.grey[600]!, width: 1.5),
+        color: Colors.blueGrey[400],
+        border: Border.all(
+          color: const Color.fromARGB(255, 139, 44, 44),
+          width: 1.5,
+        ),
       ),
     );
   }
