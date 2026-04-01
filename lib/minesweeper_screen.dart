@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mine_cell.dart';
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
@@ -46,12 +47,7 @@ class MinesweeperScreen extends StatelessWidget {
             ),
             itemCount: 64,
             itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  border: Border.all(color: Colors.grey[600]!, width: 1.5),
-                ),
-              );
+              return MineCell(index: index);
             },
           ),
         ),
