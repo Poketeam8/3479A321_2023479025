@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'mine_cell.dart';
+import '../widgets/mine_cell.dart';
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
