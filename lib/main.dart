@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
       title: 'Buscaminas',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-          primary: Colors.deepPurple,
-          secondary: Colors.amber,
+          seedColor: const Color.fromARGB(255, 116, 75, 37),
+          primary: const Color.fromARGB(255, 165, 128, 49),
+          secondary: const Color.fromARGB(255, 124, 69, 32),
         ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 245, 75, 169),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 78, 43, 62),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
