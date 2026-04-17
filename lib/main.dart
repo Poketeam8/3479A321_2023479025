@@ -27,7 +27,15 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MinesweeperScreen(),
+
+      initialRoute: '/game',
+
+      routes: {
+        '/menu': (context) => const MenuScreen(),
+        '/game': (context) => const MinesweeperScreen(),
+        '/history': (context) => const HistoryScreen(),
+        '/about': (context) => const AboutScreen(),
+      },
     );
   }
 }
