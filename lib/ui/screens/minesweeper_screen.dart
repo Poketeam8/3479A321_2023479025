@@ -12,12 +12,15 @@ class MinesweeperScreen extends StatelessWidget {
         title: const Text('Buscaminas'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {
+              Navigator.pushNamed(context, '/history');
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.person_outline),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AboutScreen()),
-              );
+              Navigator.pushNamed(context, '/about');
             },
           ),
         ],

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'ui/screens/menu_screen.dart';
+import 'ui/screens/history_screen.dart';
 import 'ui/screens/minesweeper_screen.dart';
+import 'ui/screens/about.dart';
 
 void main() {
   runApp(const MyApp());
