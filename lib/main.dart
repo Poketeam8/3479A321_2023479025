@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      initialRoute: '/game',
+      initialRoute: '/menu',
 
       routes: {
         '/menu': (context) => const MenuScreen(),

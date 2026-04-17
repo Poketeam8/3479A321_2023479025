@@ -9,13 +9,23 @@ class GameResultUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 6,
       margin: const EdgeInsets.all(8),
+
+      color: game.isVictory ? Colors.green.shade100 : Colors.red.shade100,
+
       child: ListTile(
-        title: Text('Fecha: ${game.date}'),
+        leading: Icon(
+          game.isVictory ? Icons.emoji_events : Icons.sentiment_dissatisfied,
+          color: game.isVictory ? Colors.green : Colors.red,
+        ),
+
+        title: Text('📅 ${game.date}'),
+
         subtitle: Text(
           'Tiempo: ${game.timeSpent} | Dificultad: ${game.difficulty}',
         ),
+
         trailing: Icon(
           game.isVictory ? Icons.check : Icons.close,
           color: game.isVictory ? Colors.green : Colors.red,
