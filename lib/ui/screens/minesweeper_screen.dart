@@ -7,17 +7,25 @@ class MinesweeperScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    final String difficulty = args?['difficulty'] ?? 'Desconocida';
+    final int gridSize = args?['gridSize'] ?? 8;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buscaminas'),
         actions: [
           IconButton(
+            tooltip: 'Historial',
             icon: const Icon(Icons.history),
             onPressed: () {
               Navigator.pushNamed(context, '/history');
             },
           ),
           IconButton(
+            tooltip: 'Acerca de',
             icon: const Icon(Icons.person_outline),
             onPressed: () {
               Navigator.pushNamed(context, '/about');
@@ -25,10 +33,10 @@ class MinesweeperScreen extends StatelessWidget {
           ),
         ],
       ),
+
       body: SafeArea(
         child: Column(
           children: [
-            // STATUS
             Container(
               height: 60,
               color: const Color.fromARGB(255, 209, 119, 119),
@@ -45,7 +53,6 @@ class MinesweeperScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Row(
                     children: const [
                       Icon(Icons.warning, color: Colors.red),
@@ -53,45 +60,54 @@ class MinesweeperScreen extends StatelessWidget {
                       Text('10', style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
-
                   Row(
-                    children: const [
-                      Icon(Icons.grid_on, color: Colors.blue),
-                      SizedBox(width: 5),
-                      Text('56', style: TextStyle(fontWeight: FontWeight.bold)),
+                    children: [
+                      const Icon(Icons.grid_on, color: Colors.blue),
+                      const SizedBox(width: 5),
+                      Text(
+                        '${gridSize * gridSize}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
 
+            Text(
+              'Dificultad: $difficulty',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Tamaño: $gridSize x $gridSize',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+
             const Divider(height: 1),
 
-            Expanded(child: _gameBoard()),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _gameBoard() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AspectRatio(
-          aspectRatio: 1.0,
-          child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8,
-              crossAxisSpacing: 2.0,
-              mainAxisSpacing: 2.0,
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: gridSize,
+                        crossAxisSpacing: 2.0,
+                        mainAxisSpacing: 2.0,
+                      ),
+                      itemCount: gridSize * gridSize,
+                      itemBuilder: (context, index) {
+                        return MineCell(index: index);
+                      },
+                    ),
+                  ),
+                ),
+              ),
             ),
-            itemCount: 64,
-            itemBuilder: (context, index) {
-              return MineCell(index: index);
-            },
-          ),
+          ],
         ),
       ),
     );
