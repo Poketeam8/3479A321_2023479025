@@ -1,12 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+import '../../models/cell_model.dart';
 import '../widgets/mine_cell.dart';
 import 'about.dart';
 
-class MinesweeperScreen extends StatelessWidget {
+class MinesweeperScreen extends StatefulWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
 
   @override
+  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
+}
+
+class _MinesweeperScreenState extends State<MinesweeperScreen> {
+  late List<CellModel> _cells;
+
+  final logger = Logger();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Inicializar tablero
+    _cells = List.generate(64, (i) => CellModel(index: i));
+
+    logger.i('Lifecycle: initState() - El estado ha sido creado.');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    logger.i(
+      'Lifecycle: didChangeDependencies() - Contexto listo o dependencias cambiadas.',
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant MinesweeperScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    logger.w(
+      'Lifecycle: didUpdateWidget() - La configuración del widget ha cambiado.',
+    );
+  }
+
+  @override
+  void dispose() {
+    logger.e(
+      'Lifecycle: dispose() - El estado se destruye. Liberando memoria.',
+    );
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    logger.d('Lifecycle: build() - Redibujando interfaz.');
+
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
@@ -78,6 +129,7 @@ class MinesweeperScreen extends StatelessWidget {
               'Dificultad: $difficulty',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
+
             Text(
               'Tamaño: $gridSize x $gridSize',
               style: const TextStyle(fontWeight: FontWeight.bold),
@@ -93,12 +145,15 @@ class MinesweeperScreen extends StatelessWidget {
                     aspectRatio: 1.0,
                     child: GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
+
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: gridSize,
                         crossAxisSpacing: 2.0,
                         mainAxisSpacing: 2.0,
                       ),
+
                       itemCount: gridSize * gridSize,
+
                       itemBuilder: (context, index) {
                         return MineCell(index: index);
                       },
