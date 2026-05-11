@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
 
-class MineCell extends StatelessWidget {
-  final int index;
+import '../../models/cell_model.dart';
 
-  const MineCell({super.key, required this.index});
+class MineCell extends StatelessWidget {
+
+  final CellModel cell;
+  final VoidCallback onTap;
+
+  const MineCell({
+    super.key,
+    required this.cell,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.secondary,
-        border: Border.all(color: theme.colorScheme.outline, width: 1.5),
-      ),
-      child: Center(
-        child: Image.asset('assets/icons/Bomba.png', width: 30, height: 30),
+    return GestureDetector(
+      onTap: onTap,
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[400],
+          border: Border.all(color: Colors.black),
+        ),
+
+        child: Center(
+          child: cell.isRevealed
+              ? const Icon(Icons.warning)
+              : const SizedBox.shrink(),
+        ),
       ),
     );
   }
