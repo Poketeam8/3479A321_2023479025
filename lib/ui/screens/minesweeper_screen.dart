@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../viewmodels/game_view_model.dart';
 import '../widgets/mine_cell.dart';
 import 'about.dart';
@@ -10,7 +11,8 @@ class MinesweeperScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final viewModel = context.watch<GameViewModel>();
+    final viewModel =
+        context.watch<GameViewModel>();
 
     final args =
         ModalRoute.of(context)?.settings.arguments
@@ -27,6 +29,19 @@ class MinesweeperScreen extends StatelessWidget {
         title: const Text('Buscaminas'),
 
         actions: [
+
+          IconButton(
+            tooltip: 'Reiniciar',
+            icon: const Icon(Icons.refresh),
+
+            onPressed: () {
+
+              context
+                  .read<GameViewModel>()
+                  .restartGame();
+
+            },
+          ),
 
           IconButton(
             tooltip: 'Historial',
@@ -155,6 +170,22 @@ class MinesweeperScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
+            if (viewModel.isGameOver)
+
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+
+                child: Text(
+                  'GAME OVER',
+
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
 
             const Divider(height: 1),
 
