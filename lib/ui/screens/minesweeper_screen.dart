@@ -1,78 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-
-import '../../models/cell_model.dart';
+import 'package:provider/provider.dart';
+import '../../viewmodels/game_view_model.dart';
 import '../widgets/mine_cell.dart';
 import 'about.dart';
 
-class MinesweeperScreen extends StatefulWidget {
+class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
-
-  @override
-  State<MinesweeperScreen> createState() => _MinesweeperScreenState();
-}
-
-class _MinesweeperScreenState extends State<MinesweeperScreen> {
-
-  late List<CellModel> _cells;
-
-  final logger = Logger();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _cells = List.generate(
-      64,
-      (i) => CellModel(index: i),
-    );
-
-    logger.i(
-      'Lifecycle: initState() - El estado ha sido creado.',
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    logger.i(
-      'Lifecycle: didChangeDependencies() - Contexto listo o dependencias cambiadas.',
-    );
-  }
-
-  @override
-  void didUpdateWidget(covariant MinesweeperScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    logger.w(
-      'Lifecycle: didUpdateWidget() - La configuración del widget ha cambiado.',
-    );
-  }
-
-  @override
-  void dispose() {
-    logger.e(
-      'Lifecycle: dispose() - El estado se destruye. Liberando memoria.',
-    );
-
-    super.dispose();
-  }
-
-  void _onCellTapped(int index) {
-
-    setState(() {
-      _cells[index].isRevealed = true;
-    });
-
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    logger.d(
-      'Lifecycle: build() - Redibujando interfaz.',
-    );
+    final viewModel = context.watch<GameViewModel>();
 
     final args =
         ModalRoute.of(context)?.settings.arguments
@@ -122,6 +60,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
 
             Container(
               height: 60,
+
               color: const Color.fromARGB(
                 255,
                 209,
@@ -137,6 +76,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
 
                   Row(
                     children: const [
+
                       Icon(
                         Icons.timer,
                         color: Colors.black,
@@ -146,6 +86,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
 
                       Text(
                         '349s',
+
                         style: TextStyle(
                           fontWeight:
                               FontWeight.bold,
@@ -156,6 +97,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
 
                   Row(
                     children: const [
+
                       Icon(
                         Icons.warning,
                         color: Colors.red,
@@ -165,6 +107,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
 
                       Text(
                         '10',
+
                         style: TextStyle(
                           fontWeight:
                               FontWeight.bold,
@@ -241,11 +184,14 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
                       itemBuilder:
                           (context, index) {
 
+                        final currentCell =
+                            viewModel.cells[index];
+
                         return MineCell(
-                          cell: _cells[index],
+                          cell: currentCell,
 
                           onTap: () =>
-                              _onCellTapped(index),
+                              viewModel.revealCell(index),
                         );
                       },
                     ),
