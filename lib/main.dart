@@ -3,6 +3,8 @@ import 'ui/screens/menu_screen.dart';
 import 'ui/screens/history_screen.dart';
 import 'ui/screens/minesweeper_screen.dart';
 import 'ui/screens/about.dart';
+import 'package:provider/provider.dart';
+import 'viewmodels/game_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +34,10 @@ class MyApp extends StatelessWidget {
 
       routes: {
         '/menu': (context) => const MenuScreen(),
-        '/game': (context) => const MinesweeperScreen(),
+        '/game': (context) => ChangeNotifierProvider(
+          create: (context) => GameViewModel(),
+          child: const MinesweeperScreen(),
+        ),
         '/history': (context) => const HistoryScreen(),
         '/about': (context) => const AboutScreen(),
       },
