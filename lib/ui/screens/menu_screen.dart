@@ -1,52 +1,120 @@
 import 'package:flutter/material.dart';
 
-class MenuScreen extends StatelessWidget {
+import '../../core/services/storage_service.dart';
+
+class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
   @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+
+  @override
   Widget build(BuildContext context) {
+
+    final username =
+        StorageService.getUsername();
+
+    final difficulty =
+        StorageService.getDifficulty();
+
+    int gridSize;
+
+    switch (difficulty) {
+
+      case 'Medio':
+        gridSize = 12;
+        break;
+
+      case 'Difícil':
+        gridSize = 16;
+        break;
+
+      default:
+        gridSize = 8;
+    }
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Menú Principal'), centerTitle: true),
+
+      appBar: AppBar(
+        title: const Text('Menú Principal'),
+        centerTitle: true,
+      ),
+
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment:
+              MainAxisAlignment.center,
+
           children: [
+
+            Text(
+              'Bienvenido $username',
+
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Text(
+              'Dificultad actual: $difficulty',
+
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.white70,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(
+
                 context,
                 '/game',
-                arguments: {'difficulty': 'Facil', 'gridSize': 8},
+
+                arguments: {
+                  'difficulty': difficulty,
+                  'gridSize': gridSize,
+                },
               ),
-              child: const Text('Jugar Fácil'),
+
+              child: const Text('Jugar'),
             ),
 
             const SizedBox(height: 10),
 
             ElevatedButton(
-              onPressed: () => Navigator.pushNamed(
-                context,
-                '/game',
-                arguments: {'difficulty': 'Medio', 'gridSize': 12},
-              ),
-              child: const Text('Jugar Medio'),
-            ),
+              onPressed: () =>
+                  Navigator.pushNamed(
+                    context,
+                    '/history',
+                  ),
 
-            const SizedBox(height: 10),
-
-            ElevatedButton(
-              onPressed: () => Navigator.pushNamed(
-                context,
-                '/game',
-                arguments: {'difficulty': 'Difícil', 'gridSize': 16},
-              ),
-              child: const Text('Jugar Difícil'),
-            ),
-
-            const SizedBox(height: 20),
-
-            ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, '/history'),
               child: const Text('Ir a Historial'),
+            ),
+
+            const SizedBox(height: 10),
+
+            ElevatedButton(
+
+              onPressed: () async {
+
+                await Navigator.pushNamed(
+                  context,
+                  '/settings',
+                );
+
+                setState(() {});
+              },
+
+              child: const Text('Ajustes'),
             ),
           ],
         ),

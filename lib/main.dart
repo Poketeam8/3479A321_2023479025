@@ -5,8 +5,15 @@ import 'ui/screens/minesweeper_screen.dart';
 import 'ui/screens/about.dart';
 import 'package:provider/provider.dart';
 import 'viewmodels/game_view_model.dart';
+import 'core/services/storage_service.dart';
+import 'ui/screens/settings_screen.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await StorageService.init();
+
   runApp(const MyApp());
 }
 
@@ -40,6 +47,7 @@ class MyApp extends StatelessWidget {
         ),
         '/history': (context) => const HistoryScreen(),
         '/about': (context) => const AboutScreen(),
+        '/settings': (context) => const SettingsScreen(),
       },
     );
   }
