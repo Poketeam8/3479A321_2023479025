@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../viewmodels/game_view_model.dart';
 import '../widgets/mine_cell.dart';
-import 'about.dart';
 
 class MinesweeperScreen extends StatelessWidget {
   const MinesweeperScreen({Key? key}) : super(key: key);
